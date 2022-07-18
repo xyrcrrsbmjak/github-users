@@ -8,7 +8,7 @@ cd github-users
 npm install
 ```
 
-Prepare `.env` file with GitHub Personal Access Token
+Copy the `.env.dist` file with the name `.env` and set your Github Personal Access Token to `VITE_GITHUB_PAT`.
 
 ```sh
 npm run dev
