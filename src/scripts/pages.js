@@ -1,4 +1,4 @@
-import { storage, setItem } from './ls.js'
+import { storage, initStorage, setItem } from './ls.js'
 import { html } from './html.js'
 import { request } from './request.js'
 
@@ -7,7 +7,7 @@ class SearchPage {
     const sortOptions = ['Created', 'Username']
     const orderOptions = ['ASC', 'DESC']
 
-    setItem('search', {
+    initStorage('search', {
       username: '',
       sort: sortOptions[0],
       order: orderOptions[0],
@@ -16,7 +16,7 @@ class SearchPage {
       status: 'none',
     })
 
-    this.update()
+    initStorage('favourites', [])
 
     this.element = parent.appendChild(html`
       <section class="search" role="search">

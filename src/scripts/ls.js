@@ -6,7 +6,22 @@ class LocalStorage {
       this.storage[key] = JSON.parse(value)
     }
 
+    this.initStorage = this.initStorage.bind(this)
     this.setItem = this.setItem.bind(this)
+  }
+
+  initStorage(name, initial, clear = false) {
+    if (clear) {
+      localStorage.removeItem(name)
+    }
+
+    const isInStorage = localStorage.getItem(name)
+
+    if (!isInStorage) {
+      this.storage[name] = initial
+
+      localStorage.setItem(name, initial)
+    }
   }
 
   setItem(name, state) {
@@ -16,6 +31,6 @@ class LocalStorage {
   }
 }
 
-const { storage, setItem } = new LocalStorage()
+const { storage, initStorage, setItem } = new LocalStorage()
 
-export { storage, setItem }
+export { storage, initStorage, setItem }
