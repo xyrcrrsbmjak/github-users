@@ -67,6 +67,8 @@ class SearchPage {
       </section>
     `)
 
+    this.update()
+
     this.element.querySelector('#search-form').addEventListener('submit', (event) => {
       event.preventDefault()
     })
