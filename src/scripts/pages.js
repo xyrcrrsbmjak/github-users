@@ -111,7 +111,7 @@ class SearchPage {
   }
 
   update() {
-    const status = storage.search.status
+    const { status } = storage.search
     const results = this.element.querySelector('#search-results')
     const body = status === 'some' ? html`<ol class="search-list"></ol>` : html`<div class="search-message"></div>`
 
@@ -128,16 +128,33 @@ class SearchPage {
       default:
         storage.search.items.forEach((item) => {
           const username = item.login
+          let isFavourite = storage.favourites.includes(username)
 
           const user = html`
             <li id="${username}">
               <a href="/${username}">${username}</a>
-              <button>Add to favourites</button>
+              <button class="${isFavourite ? 'favourite' : ''}">Add to favourites</button>
             </li>
           `
 
           user.querySelector('button').addEventListener('click', (event) => {
-            console.log(event.target.parentNode.id)
+            if (isFavourite) {
+              const index = storage.favourites.indexOf(username)
+
+              if (index > -1) {
+                storage.favourites.splice(index, 1)
+              }
+
+              setItem('favourites', storage.favourites)
+
+              isFavourite = false
+            } else {
+              storage.favourites.push(username)
+
+              setItem('favourites', storage.favourites)
+            }
+
+            event.target.classList.toggle('favourite')
           })
 
           body.appendChild(user)
