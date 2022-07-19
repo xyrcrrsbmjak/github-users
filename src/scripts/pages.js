@@ -16,7 +16,7 @@ class SearchPage {
       status: 'none',
     })
 
-    initStorage('favourites', [])
+    initStorage('favourites', '[]')
 
     this.element = parent.appendChild(html`
       <section class="search" role="search">
