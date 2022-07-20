@@ -15,54 +15,45 @@ function makeId(length) {
 
 function html(elements, ...expressions) {
   let resultHtml = ''
+  const components = {}
 
   expressions.forEach((value, i) => {
-    resultHtml += `${elements[i]}${value}`
+    if (value instanceof Function) {
+      const id = makeId(ID_LENGTH)
+
+      components[id] = value
+
+      resultHtml += `${elements[i]}<div sid="${id}" />`
+    } else {
+      resultHtml += `${elements[i]}${value}`
+    }
   })
 
+  // eslint-disable-next-line
   resultHtml += elements[elements.length - 1]
 
-  const template = document.createElement('template')
+  let template = document.createElement('template')
 
   template.innerHTML = resultHtml.trim()
 
-  // firstElementChild provides DOM IntelliSense for IDE
-  return template.content.firstElementChild
+  template = template.content.firstElementChild
+
+  for (const [key, CP] of Object.entries(components)) {
+    new CP(template.querySelector(`[sid="${key}"]`)).mount()
+  }
+
+  return template
 }
 
 class Component {
-  constructor(parent) {
-    this.parent = parent
+  constructor(componentParent) {
+    this.componentParent = componentParent
   }
 
   html(elements, ...expressions) {
-    let resultHtml = ''
-    const components = {}
+    const template = html(elements, ...expressions)
 
-    expressions.forEach((value, i) => {
-      if (value instanceof Function) {
-        const id = makeId(ID_LENGTH)
-
-        components[id] = value
-
-        resultHtml += `${elements[i]}<div sid="${id}" />`
-      } else {
-        resultHtml += `${elements[i]}${value}`
-      }
-    })
-
-    // eslint-disable-next-line
-    resultHtml += elements[elements.length - 1]
-
-    const template = document.createElement('template')
-
-    template.innerHTML = resultHtml.trim()
-
-    this.component = this.parent.appendChild(template.content.firstElementChild)
-
-    for (const [key, CP] of Object.entries(components)) {
-      new CP(this.component.querySelector(`[sid="${key}"]`)).mount()
-    }
+    this.component = this.componentParent.appendChild(template)
   }
 
   update() {
