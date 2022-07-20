@@ -23,7 +23,7 @@ async function getUsers(page) {
 
     setItem('search', {
       ...storage.search,
-      status: 'some',
+      status: body.total_count ? 'some' : 'empty',
       items: body.items,
       totalCount: body.total_count,
       page,

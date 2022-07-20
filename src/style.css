@@ -1,1 +1,263 @@
 @import '../node_modules/modern-normalize/modern-normalize.css';
+
+:root {
+  --shadow-1: 0 1px 2px -1px hsl(220 3% 15% / calc(1% + 9%));
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+.container {
+  --max-width: 1110px;
+  --padding: 1rem;
+
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  /* margin: 0 auto; */
+  margin-inline: auto;
+}
+
+.search {
+  padding: 20px 0;
+}
+
+.form fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 0 30px;
+  border: none;
+}
+
+.form legend {
+  margin-bottom: 20px;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 31px;
+  text-align: center;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form label span {
+  flex: 0 0 15%;
+}
+
+.form input,
+.form select {
+  flex: 1;
+  height: 42px;
+  padding: 10px 29px 9px;
+  border: none;
+  border-radius: 6px;
+}
+
+.form select {
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Search list */
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 300px;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: var(--shadow-1);
+  background-color: #fff;
+}
+
+.user--center {
+  margin: 0 auto;
+}
+
+/* Animation */
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring::after {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 6px solid #3d3e40;
+  border-color: #3d3e40 transparent;
+  border-radius: 50%;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Animation */
+
+.user__avatar {
+  border-radius: 50%;
+}
+
+.user__info {
+  text-align: center;
+}
+
+.user__controlls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.user__favourite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #653780;
+  border-radius: 4px;
+  box-shadow: var(--shadow-1);
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.user__favourite svg {
+  fill: #3d3e40;
+}
+
+.user__favourite--active {
+  background-color: #653780;
+}
+
+.user__favourite--active svg {
+  fill: #fff;
+}
+
+.user__favourite-icon {
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+}
+
+.user__show-repositories {
+  padding: 12px 15px;
+  border-radius: 4px;
+  background-color: #3d3e40;
+  color: #fff;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 250px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.paginator__btn {
+  padding: 8px 10px;
+  border: 1px solid #653780;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+@media (min-width: 320px) {
+}
+
+@media (min-width: 576px) {
+  .search {
+    padding: 20px 10px;
+  }
+
+  .form fieldset legend {
+    font-size: 29px;
+    line-height: 40px;
+  }
+
+  .form label {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (min-width: 600px) {
+  .search-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .user {
+    max-width: 250px;
+    padding: 2rem 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .user {
+    max-width: 300px;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 903px) {
+  .search-list {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 992px) {
+  .search {
+    padding: 20px;
+  }
+
+  .form fieldset {
+    flex-direction: row;
+  }
+
+  .form fieldset legend {
+    text-align: initial;
+  }
+
+  .form label {
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .form label[for='search-input'] {
+    flex: 1;
+  }
+}
