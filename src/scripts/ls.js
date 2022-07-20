@@ -24,7 +24,7 @@ class LocalStorage {
       this.storage[name] = initial
       this.listeners[name] = []
 
-      localStorage.setItem(name, initial)
+      localStorage.setItem(name, JSON.stringify(initial))
     }
   }
 
