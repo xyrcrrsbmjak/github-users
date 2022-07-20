@@ -8,12 +8,12 @@ class LocalStorage {
       this.listeners[key] = []
     }
 
-    this.initStorage = this.initStorage.bind(this)
+    this.initItem = this.initItem.bind(this)
     this.setItem = this.setItem.bind(this)
     this.addListener = this.addListener.bind(this)
   }
 
-  initStorage(name, initial, clear = false) {
+  initItem(name, initial, clear = false) {
     if (clear) {
       localStorage.removeItem(name)
     }
@@ -45,6 +45,6 @@ class LocalStorage {
   }
 }
 
-const { storage, initStorage, addListener, setItem } = new LocalStorage()
+const { storage, initItem, addListener, setItem } = new LocalStorage()
 
-export { storage, initStorage, addListener, setItem }
+export { storage, initItem, addListener, setItem }
