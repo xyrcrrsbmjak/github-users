@@ -9,12 +9,15 @@ function request(url) {
   })
 }
 
-async function getUsers(page) {
+async function getUsers(params) {
+  setItem('search', { ...storage.search, items: [], ...params, status: 'pending' })
+
   try {
-    const url = `https://api.github.com/search/users?page=${page}&per_page=${storage.search.perPage}&sort=${storage.search.sort}&order=${storage.search.order}&q=${storage.search.username} in:username`
+    const { page } = params.page
+    const { perPage, sort, order, username } = storage.search
 
     const response = await request(
-      `https://api.github.com/search/users?page=${page}&per_page=${storage.search.perPage}&sort=${storage.search.sort}&order=${storage.search.order}&q=${storage.search.username} in:username`
+      `https://api.github.com/search/users?page=${page}&per_page=${perPage}&sort=${sort}&order=${order}&q=${username} in:username`
     )
 
     if (!response.ok) {
@@ -28,10 +31,9 @@ async function getUsers(page) {
       status: body.total_count ? 'some' : 'empty',
       items: body.items,
       totalCount: body.total_count,
-      page,
     })
   } catch (error) {
-    setItem('search', { ...storage.search, page, status: 'error' })
+    setItem('search', { ...storage.search, status: 'error' })
   }
 }
 

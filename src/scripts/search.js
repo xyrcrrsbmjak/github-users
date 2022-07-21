@@ -18,19 +18,17 @@ class Paginator extends Component {
       </div>
     `
 
-    this.component.querySelector('.paginator__btn--left').addEventListener('click', () => {
-      const previousPage = page - 1
+    const paginationStep = 1
 
-      setItem('search', { ...storage.search, page: previousPage, items: [], status: 'pending' })
-      getUsers(previousPage)
+    this.component.querySelector('.paginator__btn--left').addEventListener('click', () => {
+      getUsers({ page: page - paginationStep })
+
       this.update()
     })
 
     this.component.querySelector('.paginator__btn--right').addEventListener('click', () => {
-      const nextPage = page + 1
+      getUsers({ page: page + paginationStep })
 
-      setItem('search', { ...storage.search, page: nextPage, items: [], status: 'pending' })
-      getUsers(nextPage)
       this.update()
     })
   }
@@ -143,9 +141,7 @@ class SearchPage extends Component {
       element.addEventListener('change', (event) => {
         const { name, value } = event.target
 
-        setItem('search', { ...storage.search, items: [], [name]: value, status: 'pending' })
-
-        getUsers(1)
+        getUsers({ page: 1, [name]: value })
       })
     )
   }
