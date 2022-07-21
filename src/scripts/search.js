@@ -133,10 +133,6 @@ class SearchPage extends Component {
       </section>
     `
 
-    this.component.querySelector('#search-form').addEventListener('submit', (event) => {
-      event.preventDefault()
-    })
-
     this.component.querySelectorAll('[name]').forEach((element) =>
       element.addEventListener('change', (event) => {
         const { name, value } = event.target
