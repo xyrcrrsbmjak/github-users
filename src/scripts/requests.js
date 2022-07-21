@@ -11,6 +11,8 @@ function request(url) {
 
 async function getUsers(page) {
   try {
+    const url = `https://api.github.com/search/users?page=${page}&per_page=${storage.search.perPage}&sort=${storage.search.sort}&order=${storage.search.order}&q=${storage.search.username} in:username`
+
     const response = await request(
       `https://api.github.com/search/users?page=${page}&per_page=${storage.search.perPage}&sort=${storage.search.sort}&order=${storage.search.order}&q=${storage.search.username} in:username`
     )

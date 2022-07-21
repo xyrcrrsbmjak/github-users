@@ -1,5 +1,5 @@
-import { storage, initItem, addListener, setItem } from './ls.js'
-import { html, Component } from './slowpoke.js'
+import { storage, addListener, setItem } from './ls.js'
+import { Component } from './slowpoke.js'
 import { getUsers } from './requests.js'
 import renderUsers from './users.js'
 
@@ -98,7 +98,7 @@ class SearchPage extends Component {
             <label for="search-sort">
               <span>Sort</span>
               <select name="sort" id="search-sort">
-                ${this.sortOptions.reduce(
+                ${storage.search.sortOptions.reduce(
                   (result, last) =>
                     result.concat(
                       `<option value="${last.toLowerCase()}" ${
@@ -112,7 +112,7 @@ class SearchPage extends Component {
             <label for="search-order">
               <span>Order</span>
               <select name="order" id="search-order">
-                ${this.orderOptions.reduce(
+                ${storage.search.orderOptions.reduce(
                   (result, last) =>
                     result.concat(
                       `<option value="${last.toLowerCase()}" ${
@@ -145,13 +145,7 @@ class SearchPage extends Component {
 
         setItem('search', { ...storage.search, items: [], [name]: value, status: 'pending' })
 
-        let timeout = 0
-
-        if (name === 'username') {
-          timeout = 1500
-        }
-
-        setTimeout(() => getUsers(1), timeout)
+        getUsers(1)
       })
     )
   }

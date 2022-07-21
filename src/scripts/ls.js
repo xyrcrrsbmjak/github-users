@@ -52,8 +52,10 @@ const orderOptions = ['DESC', 'ASC']
 
 initItem('search', {
   username: '',
-  sort: sortOptions[0],
-  order: orderOptions[0],
+  sort: sortOptions[0].toLowerCase(),
+  sortOptions,
+  order: orderOptions[0].toLowerCase(),
+  orderOptions,
   perPage: 4,
   page: 1,
   totalCount: 0,
