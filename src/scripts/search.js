@@ -73,15 +73,16 @@ class SearchResults extends Component {
     `
 
     storage.search.items.forEach((item) => {
-      const username = item.login
-      let isFavourite = storage.favourites.includes(item.login)
+      const { login } = item
+      const findFavourite = (user) => user.login === login
+      let isFavourite = Boolean(storage.favourites.find(findFavourite))
 
       const user = html`
-        <li class="user" id="${username}">
-          <img class="user__avatar" src="${item.avatar_url}" alt="${username}'s avatar" width="111" height="111" />
+        <li class="user" id="${login}">
+          <img class="user__avatar" src="${item.avatar_url}" alt="${login}'s avatar" width="111" height="111" />
           <div class="user__info">
-            <h2>${username}</h2>
-            <a class="user__gtg" href="https://github.com/${username}" target="_blank">link to github</a>
+            <h2>${login}</h2>
+            <a class="user__gtg" href="https://github.com/${login}" target="_blank">link to github</a>
           </div>
           <div class="user__controlls">
             <button class="user__favourite ${isFavourite ? 'user__favourite--active' : ''}">
@@ -97,20 +98,20 @@ class SearchResults extends Component {
                 />
               </svg>
             </button>
-            <a class="user__show-repositories" href="/${username}">Show repositories</a>
+            <a class="user__show-repositories" href="/${login}">Show repositories</a>
           </div>
         </li>
       `
 
       user.querySelector('.user__favourite').addEventListener('click', (event) => {
         if (isFavourite) {
-          const index = storage.favourites.indexOf(username)
+          const index = storage.favourites.findIndex(findFavourite)
 
           if (index > -1) {
             storage.favourites.splice(index, 1)
           }
         } else {
-          storage.favourites.push(username)
+          storage.favourites.push(item)
         }
 
         isFavourite = !isFavourite
