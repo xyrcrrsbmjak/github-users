@@ -77,6 +77,14 @@ class SearchResults extends Component {
 
 class SearchPage extends Component {
   render() {
+    const renderOptions = (options, item) => {
+      return options.reduce((result, last) => {
+        const option = last.toLowerCase()
+
+        return result.concat(`<option value="${option}" ${option === item ? 'selected' : ''}>${last}</option>`)
+      }, '')
+    }
+
     this.html`
       <section class="search" role="search">
         <form class="form" id="search-form" action="#" method="get">
@@ -96,29 +104,13 @@ class SearchPage extends Component {
             <label for="search-sort">
               <span>Sort</span>
               <select name="sort" id="search-sort">
-                ${storage.search.sortOptions.reduce(
-                  (result, last) =>
-                    result.concat(
-                      `<option value="${last.toLowerCase()}" ${
-                        last === storage.search.sort ? 'selected' : ''
-                      }>${last}</option>`
-                    ),
-                  ''
-                )}
+                ${renderOptions(storage.search.sortOptions, storage.search.sort)}
               </select>
             </label>
             <label for="search-order">
               <span>Order</span>
               <select name="order" id="search-order">
-                ${storage.search.orderOptions.reduce(
-                  (result, last) =>
-                    result.concat(
-                      `<option value="${last.toLowerCase()}" ${
-                        last === storage.search.order ? 'selected' : ''
-                      }>${last}</option>`
-                    ),
-                  ''
-                )}
+                ${renderOptions(storage.search.orderOptions, storage.search.order)}
               </select>
             </label>
             <label for="search-per-page">
