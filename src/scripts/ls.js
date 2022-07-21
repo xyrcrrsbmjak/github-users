@@ -47,4 +47,20 @@ class LocalStorage {
 
 const { storage, initItem, addListener, setItem } = new LocalStorage()
 
+const sortOptions = ['Followers', 'Repositories', 'Joined']
+const orderOptions = ['DESC', 'ASC']
+
+initItem('search', {
+  username: '',
+  sort: sortOptions[0],
+  order: orderOptions[0],
+  perPage: 4,
+  page: 1,
+  totalCount: 0,
+  items: [],
+  status: 'none',
+})
+
+initItem('favourites', [])
+
 export { storage, initItem, addListener, setItem }

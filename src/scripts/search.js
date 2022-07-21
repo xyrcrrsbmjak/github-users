@@ -78,26 +78,6 @@ class SearchResults extends Component {
 }
 
 class SearchPage extends Component {
-  constructor(parent) {
-    super(parent)
-
-    this.sortOptions = ['Followers', 'Repositories', 'Joined']
-    this.orderOptions = ['DESC', 'ASC']
-
-    initItem('search', {
-      username: '',
-      sort: this.sortOptions[0],
-      order: this.orderOptions[0],
-      perPage: 4,
-      page: 1,
-      totalCount: 0,
-      items: [],
-      status: 'none',
-    })
-
-    initItem('favourites', [])
-  }
-
   render() {
     this.html`
       <section class="search" role="search">
