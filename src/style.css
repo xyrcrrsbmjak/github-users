@@ -197,6 +197,31 @@ body {
   cursor: pointer;
 }
 
+.repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repo-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.repo-list a {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #3d3e40;
+  color: #fff;
+  text-decoration: none;
+}
+
 @media (min-width: 320px) {
 }
 

@@ -33,4 +33,26 @@ async function getUsers(page) {
   }
 }
 
-export { request, getUsers }
+async function getUser(username) {
+  try {
+    const responseUser = await request(`https://api.github.com/users/${username}`)
+    const responseRepos = await request(`https://api.github.com/users/${username}/repos`)
+
+    if (!responseUser.ok) {
+      throw new Error(responseUser.statusText)
+    }
+
+    if (!responseRepos.ok) {
+      throw new Error(responseRepos.statusText)
+    }
+
+    const bodyUser = await responseUser.json()
+    const bodyRepos = await responseRepos.json()
+
+    return [bodyUser, bodyRepos]
+  } catch (error) {
+    return error
+  }
+}
+
+export { request, getUsers, getUser }
