@@ -133,6 +133,12 @@ class SearchPage extends Component {
       </section>
     `
 
+    this.component.querySelector('[name="username"]').addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        getUsers({ page: 1, username: event.target.value })
+      }
+    })
+
     this.component.querySelectorAll('[name]').forEach((element) =>
       element.addEventListener('change', (event) => {
         const { name, value } = event.target
